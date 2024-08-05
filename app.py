@@ -104,7 +104,7 @@ if uploaded_file is not None:
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        image = load_img(uploaded_file, target_size=(128, 128))
+        image = load_img(uploaded_file, target_size=(224, 224))
         st.image(image, caption='Uploaded Image.', use_column_width=True)
     
         # Image preprocessing
