@@ -7,7 +7,7 @@ from io import BytesIO
 from config import NUTRITION_API_KEY
 
 # Load the trained model
-model = load_model('food_classification_model.keras')
+model = load_model('mobilenetv2_3_food_classification_model.keras')
 class_names = [
     'apple_pie', 'baby_back_ribs', 'baklava', 'beef_tartare', 'beet_salad', 'beignet', 'bibimbap', 
     'bread_pudding', 'burrito', 'bruschetta', 'caesar_salad', 'calamari', 'cannoli', 'caprese_salad', 
