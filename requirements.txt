@@ -3,4 +3,4 @@ streamlit
 requests==2.32.2
 tensorflow==2.17.0
 tensorflow-intel==2.17.0
-tensorflow-intel==0.16.1
+tensorflow-hub==0.16.1
