@@ -165,10 +165,6 @@ rotasi, pergeseran, shear, zoom, dan flip horizontal.
 Data pelatihan dibagi menjadi 80% untuk pelatihan dan 20% untuk validasi. Selama pelatihan, callback early stopping digunakan 
 untuk memantau kehilangan validasi (`val_loss`) dan menghentikan pelatihan jika tidak ada peningkatan selama 10 epoch, 
 serta mengembalikan bobot terbaik dari model.
-
-Setelah pelatihan, model mencapai akurasi yang lebih baik dibandingkan model sebelumnya, yang menunjukkan peningkatan 
-kemampuan model untuk mengklasifikasikan gambar makanan yang tidak terlihat. Hasil akhir menunjukkan performa yang 
-menjanjikan untuk tugas klasifikasi gambar makanan yang kompleks dengan banyak kategori.
 """)
 
 st.subheader('Tentang Skor Kepercayaan:')
