@@ -148,18 +148,27 @@ sehingga hanya tersisa 95 kategori makanan. Selain itu, gambar yang tidak jelas 
 
 st.subheader('Tentang Model AI:')
 st.write("""
-Model AI yang digunakan dalam aplikasi ini menggunakan teknik pembelajaran mendalam, khususnya Jaringan Saraf Konvolusional (CNN), 
-untuk mengklasifikasikan gambar ke dalam kategori makanan yang telah ditentukan. Arsitektur model mencakup lapisan-lapisan berikut:
-- Lapisan input: Menerima data gambar.
-- Lapisan konvolusi: Mengekstrak fitur dari gambar.
-- Lapisan max-pooling: Mengurangi dimensi peta fitur.
-- Lapisan fully connected: Memetakan fitur yang diekstrak ke kelas output.
-- Lapisan output: Menghasilkan klasifikasi akhir.
+Model AI yang digunakan dalam aplikasi ini menggunakan teknik pembelajaran mendalam, khususnya arsitektur MobileNetV2 yang telah 
+dilatih sebelumnya pada dataset ImageNet, untuk mengklasifikasikan gambar ke dalam kategori makanan yang telah ditentukan. 
+Arsitektur model mencakup lapisan-lapisan berikut:
 
-Model ini dilatih dengan split validasi 20%, artinya 80% dari data digunakan untuk pelatihan dan 20% untuk validasi. 
-Selama validasi, kinerja model dievaluasi pada data yang tidak terlihat untuk mencegah overfitting. Model mencapai akurasi 
-48% pada set validasi, menunjukkan kemampuannya untuk mengklasifikasikan hampir setengah dari gambar makanan yang tidak terlihat. 
-Kinerja ini tipikal untuk tugas klasifikasi gambar yang kompleks dengan banyak kategori.
+- **MobileNetV2 Base**: Digunakan sebagai feature extractor dengan bobot yang dilatih pada dataset ImageNet. Lapisan ini 
+  memiliki parameter trainable yang disetel ke False, sehingga bobotnya tidak akan diperbarui selama pelatihan.
+- **Lapisan Dense Custom**: Dua lapisan fully connected (Dense) dengan 128 unit dan aktivasi ReLU ditambahkan di atas feature 
+  extractor untuk memetakan fitur yang diekstrak ke kelas output.
+- **Lapisan Output**: Lapisan dense terakhir dengan fungsi aktivasi softmax menghasilkan klasifikasi akhir ke dalam salah 
+  satu dari beberapa kategori makanan.
+
+Model ini dilatih menggunakan augmentasi data untuk meningkatkan keanekaragaman data pelatihan, dengan teknik-teknik seperti 
+rotasi, pergeseran, shear, zoom, dan flip horizontal.
+
+Data pelatihan dibagi menjadi 80% untuk pelatihan dan 20% untuk validasi. Selama pelatihan, callback early stopping digunakan 
+untuk memantau kehilangan validasi (`val_loss`) dan menghentikan pelatihan jika tidak ada peningkatan selama 10 epoch, 
+serta mengembalikan bobot terbaik dari model.
+
+Setelah pelatihan, model mencapai akurasi yang lebih baik dibandingkan model sebelumnya, yang menunjukkan peningkatan 
+kemampuan model untuk mengklasifikasikan gambar makanan yang tidak terlihat. Hasil akhir menunjukkan performa yang 
+menjanjikan untuk tugas klasifikasi gambar makanan yang kompleks dengan banyak kategori.
 """)
 
 st.subheader('Tentang Skor Kepercayaan:')
