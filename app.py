@@ -3,7 +3,6 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array, load_img
 import requests
-from io import BytesIO
 from config import NUTRITION_API_KEY
 
 # Load the trained model
@@ -25,104 +24,202 @@ class_names = [
     'spring_rolls', 'steak', 'strawberry_shortcake', 'sushi', 'tacos', 'tiramisu', 'waffles', 'yogurt'
 ]
 
-# Set up the Streamlit interface
-st.title('Food Prediction and Nutrition Info')
+def translate_food_name(name):
+    translation_dict = {
+        'apple_pie': 'pai apel',
+        'baby_back_ribs': 'iga panggang',
+        'baklava': 'baklava',
+        'beef_tartare': 'tartar daging sapi',
+        'beet_salad': 'salad bit',
+        'beignet': 'roti goreng Prancis',
+        'bibimbap': 'bibimbap',
+        'bread_pudding': 'puding roti',
+        'burrito': 'burrito',
+        'bruschetta': 'bruschetta',
+        'caesar_salad': 'salad caesar',
+        'calamari': 'cumi goreng',
+        'cannoli': 'cannoli',
+        'caprese_salad': 'salad caprese',
+        'carpaccio': 'carpaccio',
+        'carrot_cake': 'kue wortel',
+        'ceviche': 'ceviche',
+        'cheesecake': 'kue keju',
+        'cheese_plate': 'piring keju',
+        'chicken_curry': 'kari ayam',
+        'chicken_quesadilla': 'quesadilla ayam',
+        'chicken_wings': 'sayap ayam',
+        'chocolate_cake': 'kue coklat',
+        'chocolate_mousse': 'mousse coklat',
+        'churros': 'churros',
+        'clam_chowder': 'sup krim kerang',
+        'club_sandwich': 'sandwich klub',
+        'crab_cakes': 'kue kepiting',
+        'creme_brulee': 'creme brulee',
+        'cup_cakes': 'kue cangkir',
+        'deviled_eggs': 'telur isi',
+        'donuts': 'donat',
+        'dumplings': 'pangsit',
+        'edamame': 'kedelai Jepang',
+        'eggs_benedict': 'telur benedict',
+        'escargots': 'siput',
+        'falafel': 'falafel',
+        'filet_mignon': 'daging sapi filet',
+        'fish_and_chips': 'ikan dan kentang goreng',
+        'foie_gras': 'foie gras',
+        'french_fries': 'kentang goreng',
+        'french_onion_soup': 'sup bawang Perancis',
+        'french_toast': 'roti panggang Perancis',
+        'fried_rice': 'nasi goreng',
+        'garlic_bread': 'roti bawang putih',
+        'gnocchi': 'gnocchi',
+        'greek_salad': 'salad Yunani',
+        'grilled_cheese_sandwich': 'sandwich keju panggang',
+        'grilled_salmon': 'salmon panggang',
+        'guacamole': 'guacamole',
+        'gyoza': 'gyoza',
+        'hamburger': 'hamburger',
+        'hot_and_sour_soup': 'sup asam pedas',
+        'hot_dog': 'hot dog',
+        'huevos_rancheros': 'huevos rancheros',
+        'hummus': 'hummus',
+        'ice_cream': 'es krim',
+        'lasagna': 'lasagna',
+        'lobster_bisque': 'bisque lobster',
+        'macaroni_and_cheese': 'makaroni dan keju',
+        'macarons': 'makaron',
+        'miso_soup': 'sup miso',
+        'mussels': 'kerang',
+        'nachos': 'nachos',
+        'omelette': 'omelet',
+        'onion_rings': 'cincin bawang',
+        'oysters': 'tirami',
+        'pad_thai': 'pad thai',
+        'paella': 'paella',
+        'pancakes': 'panekuk',
+        'panna_cotta': 'panna cotta',
+        'peking_duck': 'bebek peking',
+        'pho': 'pho',
+        'pizza': 'pizza',
+        'pork_chop': 'daging babi',
+        'poutine': 'poutine',
+        'prime_rib': 'iga utama',
+        'pulled_pork_sandwich': 'sandwich babi suwir',
+        'ramen': 'ramen',
+        'ravioli': 'ravioli',
+        'risotto': 'risotto',
+        'samosa': 'samosa',
+        'sashimi': 'sashimi',
+        'scallops': 'kerang',
+        'seaweed_salad': 'salad rumput laut',
+        'shrimp_and_grits': 'udang dan bubur jagung',
+        'spaghetti_bolognese': 'spageti bolognese',
+        'spring_rolls': 'lumpia',
+        'steak': 'steak',
+        'strawberry_shortcake': 'kue stroberi',
+        'sushi': 'sushi',
+        'tacos': 'taco',
+        'tiramisu': 'tiramisu',
+        'waffles': 'wafel',
+        'yogurt': 'yogurt'
+    }
+    return translation_dict.get(name, name)
+
+# Menyiapkan antarmuka Streamlit
+st.title('Prediksi Makanan dan Informasi Nutrisi')
 st.write("""
-    Welcome to the Food Prediction and Nutrition Info website! This tool allows you to upload an image of a food item, 
-    and it will use a trained AI model to predict the type of food. Additionally, it provides nutritional information 
-    and assesses whether the food is healthy based on specific parameters.
+    Selamat datang di situs Prediksi Makanan dan Informasi Nutrisi! Situs ini memungkinkan Anda untuk mengunggah gambar makanan, 
+    dan akan menggunakan model AI terlatih untuk memprediksi jenis makanan. Selain itu, alat ini memberikan informasi nutrisi 
+    dan menilai apakah makanan tersebut sehat berdasarkan parameter tertentu.
 """)
 
-st.subheader('How to Use:')
+st.subheader('Cara Menggunakan:')
 st.write("""
-1. Click on the "Choose File" button to upload an image of the food item.
-2. Click on the "Predict" button to start the prediction process.
-3. The predicted food type, its confidence score, nutritional information, and health status will be displayed on the screen.
+1. Klik tombol "Pilih File" untuk mengunggah gambar makanan.
+2. Klik tombol "Prediksi" untuk memulai proses prediksi.
+3. Jenis makanan yang diprediksi, skor kepercayaan, informasi nutrisi, dan status kesehatan akan ditampilkan di layar.
 """)
 
-st.subheader('About the Dataset:')
+st.subheader('Tentang Dataset:')
 st.write("""
-The dataset used to train the AI model is the Food-101 dataset from Kaggle, which contains 101,000 images across 101 food categories. 
-Each category initially has 1,000 images. The dataset was cleaned by removing categories that could not be matched with the API 
-and adjusting the labels to match the API's categories. Additionally, unclear, blurry, and incorrectly labeled images were removed, 
-resulting in 500 images per category and a total of 95,000 images.
+Dataset yang digunakan untuk melatih model AI adalah dataset Food-101 dari Kaggle, yang berisi 101.000 gambar dari 101 kategori makanan. 
+Setiap kategori awalnya memiliki 1.000 gambar. Dataset ini dibersihkan dengan menghapus kategori yang tidak dapat dicocokkan dengan API dan menyesuaikan label agar sesuai dengan kategori API, 
+sehingga hanya tersisa 95 kategori makanan. Selain itu, gambar yang tidak jelas dan tidak sesuai konteks dihapus, sehingga hanya menyisakan 500 gambar per kategori dan totalnya adalah 95.000 gambar.
 """)
 
-st.subheader('About the AI Model:')
+st.subheader('Tentang Model AI:')
 st.write("""
-The AI model used in this application employs deep learning techniques, specifically a Convolutional Neural Network (CNN), 
-to classify images into predefined food categories. The model architecture includes the following layers:
-- Input layer: Takes in the image data.
-- Convolutional layers: Extract features from the images.
-- Max-pooling layers: Reduce the dimensionality of the feature maps.
-- Fully connected layers: Map the extracted features to the output classes.
-- Output layer: Produces the final classification.
+Model AI yang digunakan dalam aplikasi ini menggunakan teknik pembelajaran mendalam, khususnya Jaringan Saraf Konvolusional (CNN), 
+untuk mengklasifikasikan gambar ke dalam kategori makanan yang telah ditentukan. Arsitektur model mencakup lapisan-lapisan berikut:
+- Lapisan input: Menerima data gambar.
+- Lapisan konvolusi: Mengekstrak fitur dari gambar.
+- Lapisan max-pooling: Mengurangi dimensi peta fitur.
+- Lapisan fully connected: Memetakan fitur yang diekstrak ke kelas output.
+- Lapisan output: Menghasilkan klasifikasi akhir.
 
-The model was trained with a validation split of 20%, meaning 80% of the data was used for training and 20% for validation. 
-During validation, the model's performance is evaluated on unseen data to prevent overfitting. The model achieved an accuracy 
-of 48% on the validation set, indicating its ability to correctly classify nearly half of the unseen food images. 
-This performance is typical for complex image classification tasks with a large number of categories.
+Model ini dilatih dengan split validasi 20%, artinya 80% dari data digunakan untuk pelatihan dan 20% untuk validasi. 
+Selama validasi, kinerja model dievaluasi pada data yang tidak terlihat untuk mencegah overfitting. Model mencapai akurasi 
+48% pada set validasi, menunjukkan kemampuannya untuk mengklasifikasikan hampir setengah dari gambar makanan yang tidak terlihat. 
+Kinerja ini tipikal untuk tugas klasifikasi gambar yang kompleks dengan banyak kategori.
 """)
 
-
-st.subheader('About Confidence:')
+st.subheader('Tentang Skor Kepercayaan:')
 st.write("""
-The confidence score represents the probability that the AI model's prediction is correct. 
-A higher confidence score means the model is more certain about its prediction.
+Skor kepercayaan mewakili probabilitas bahwa prediksi model AI benar. 
+Skor kepercayaan yang lebih tinggi berarti model lebih yakin tentang prediksinya.
 """)
 
-st.subheader('Nutrition Data:')
+st.subheader('Data Nutrisi:')
 st.write("""
-The nutritional information is fetched from the API Ninjas Nutrition API. The information includes details such as total fat, 
-saturated fat, sodium, potassium, cholesterol, carbohydrates, fiber, and sugar. However, there are three nutrients that are not 
-displayed due to premium API restrictions: calories, serving size, and protein. Additionally, note that cholesterol, 
-potassium, and sodium are measured in milligrams (mg), while the other nutrients are measured in grams (g).
+Informasi nutrisi diambil dari API milik Ninjas Nutrition API. Informasi tersebut mencakup rincian seperti total lemak, 
+lemak jenuh, natrium, kalium, kolesterol, karbohidrat, serat, dan gula. Namun, ada tiga nutrisi yang tidak ditampilkan 
+karena batasan API premium: kalori, ukuran porsi, dan protein. Selain itu, perlu dicatat bahwa kolesterol, 
+kalium, dan natrium diukur dalam miligram (mg), sementara nutrisi lainnya diukur dalam gram (g).
 """)
 
-st.subheader('Health Parameters:')
+st.subheader('Parameter Kesehatan:')
 st.write("""
-The health status is determined based on guidelines from the WHO's healthy diet parameters. A food item is considered healthy 
-if it meets certain thresholds for fat, saturated fat, sodium, cholesterol, and sugar. These parameters were derived from daily 
-recommended intake values, divided by three to represent typical meals, and further adjusted for safety. Here are the sources 
-and calculations used:
-- [WHO Healthy Diet Guidelines](https://www.who.int/news-room/fact-sheets/detail/healthy-diet): Daily intake recommendations for fat, saturated fat, sodium, and sugar were divided by 3 for three meals per day, and then halved to ensure a conservative estimate per serving.
-- [WebMD Calorie Chart](https://www.webmd.com/diet/calories-chart): The baseline for calorie intake is 2000 calories per day.
-- [AHA Cholesterol Guidelines](https://www.ahajournals.org/doi/full/10.1161/CIR.0000000000000743): Daily cholesterol intake should be less than 300mg, divided by 3 for three meals per day, and then halved to ensure a conservative estimate per serving..
+Status kesehatan ditentukan berdasarkan pedoman dari parameter diet sehat WHO. Sebuah makanan dianggap sehat 
+jika memenuhi ambang batas tertentu untuk lemak, lemak jenuh, natrium, kolesterol, dan gula. Parameter ini diperoleh dari nilai 
+asupan harian yang disarankan, dibagi tiga untuk mewakili makanan sehari-hari, dan kemudian dibagi dua untuk memastikan perkiraan konservatif per porsi. 
+Berikut adalah sumber dan perhitungan yang digunakan:
+- [Chart Kalori WebMD](https://www.webmd.com/diet/calories-chart): Dasar untuk asupan kalori adalah 2000 kalori per hari.
+- [Pedoman Diet Sehat WHO](https://www.who.int/news-room/fact-sheets/detail/healthy-diet): Rekomendasi asupan harian untuk lemak total adalah tidak melebihi 30% dari kalori yang dikonsumsi, dan lemak jenuh harus kurang dari 10% dari kalori yang dikonsumsi untuk mencegah kenaikan berat badan yang tidak sehat. Natrium sebaiknya kurang dari 2 gram per hari untuk mencegah hipertensi, mengurangi risiko penyakit jantung, dan tekanan darah tinggi. Gula sebaiknya tidak lebih dari 10% dari kalori yang dikonsumsi untuk mencegah risiko kerusakan gigi, kenaikan berat badan yang tidak sehat, dan risiko penyakit kardiovaskular.
+- [Pedoman Kolesterol AHA](https://www.ahajournals.org/doi/full/10.1161/CIR.0000000000000743): Asupan kolesterol harian sebaiknya kurang dari 300mg, untuk lebih menyehatkan jantung.
 
-Using these guidelines, the parameters for a healthy serving are:
-- Total Fat: Less than 11g
-- Saturated Fat: Less than 4g
-- Sodium: Less than 333mg
-- Cholesterol: Less than 50mg
-- Sugar: Less than 8g
+Dengan menggunakan pedoman ini, parameter untuk porsi yang sehat adalah:
+- Total Lemak: Kurang dari 11g
+- Lemak Jenuh: Kurang dari 4g
+- Natrium: Kurang dari 333mg
+- Kolesterol: Kurang dari 50mg
+- Gula: Kurang dari 8g
 """)
 
-# Image upload
-uploaded_file = st.file_uploader("Choose a food image...", type="jpg")
+# Unggah gambar
+uploaded_file = st.file_uploader("Pilih gambar makanan...", type="jpg")
 
 if uploaded_file is not None:
     col1, col2 = st.columns([1, 1])
     
     with col1:
         image = load_img(uploaded_file, target_size=(224, 224))
-        st.image(image, caption='Uploaded Image.', use_column_width=True)
+        st.image(image, caption='Gambar yang diunggah.', use_column_width=True)
     
-        # Image preprocessing
+        # Priproses gambar
         image = img_to_array(image) / 255.0
         image = np.expand_dims(image, axis=0)
     
-        # Predict the class of the image
+        # Prediksi kelas gambar
         prediction = model.predict(image)
         predicted_class = class_names[np.argmax(prediction)]
         confidence = float(np.max(prediction))
         
-        # Display prediction and confidence below the image
-        st.write(f'Prediction: {predicted_class.replace("_", " ")}')
-        st.write(f'Confidence: {confidence * 100:.2f}%')
+        # Tampilkan prediksi dan kepercayaan di bawah gambar
+        st.write(f'Prediksi: {translate_food_name(predicted_class).replace("_", " ")}')
+        st.write(f'Skor Kepercayaan: {confidence * 100:.2f}%')
         
     with col2:
-        # Display nutrition information and health status with larger, bold text
-        st.markdown(f"**<h3>Nutrition Information:</h3>**", unsafe_allow_html=True)
+        # Tampilkan informasi nutrisi dan status kesehatan dengan teks lebih besar dan tebal
+        st.markdown(f"**<h3>Informasi Nutrisi:</h3>**", unsafe_allow_html=True)
         
         url = f'https://api.api-ninjas.com/v1/nutrition?query={predicted_class.replace("_", " ")}'
         headers = {'X-Api-Key': NUTRITION_API_KEY}
@@ -132,16 +229,16 @@ if uploaded_file is not None:
             nutrition_data = response.json()
             if nutrition_data:
                 nutrition_info = nutrition_data[0]
-                st.write(f"Fat Total (g): {nutrition_info.get('fat_total_g', 'N/A')}")
-                st.write(f"Fat Saturated (g): {nutrition_info.get('fat_saturated_g', 'N/A')}")
-                st.write(f"Sodium (mg): {nutrition_info.get('sodium_mg', 'N/A')}")
-                st.write(f"Potassium (mg): {nutrition_info.get('potassium_mg', 'N/A')}")
-                st.write(f"Cholesterol (mg): {nutrition_info.get('cholesterol_mg', 'N/A')}")
-                st.write(f"Carbohydrates Total (g): {nutrition_info.get('carbohydrates_total_g', 'N/A')}")
-                st.write(f"Fiber (g): {nutrition_info.get('fiber_g', 'N/A')}")
-                st.write(f"Sugar (g): {nutrition_info.get('sugar_g', 'N/A')}")
+                st.write(f"Lemak Total (g): {nutrition_info.get('fat_total_g', 'N/A')}")
+                st.write(f"Lemak Jenuh (g): {nutrition_info.get('fat_saturated_g', 'N/A')}")
+                st.write(f"Natrium (mg): {nutrition_info.get('sodium_mg', 'N/A')}")
+                st.write(f"Kalium (mg): {nutrition_info.get('potassium_mg', 'N/A')}")
+                st.write(f"Kolesterol (mg): {nutrition_info.get('cholesterol_mg', 'N/A')}")
+                st.write(f"Karbohidrat Total (g): {nutrition_info.get('carbohydrates_total_g', 'N/A')}")
+                st.write(f"Serat (g): {nutrition_info.get('fiber_g', 'N/A')}")
+                st.write(f"Gula (g): {nutrition_info.get('sugar_g', 'N/A')}")
             
-                # Health status calculation
+                # Perhitungan status kesehatan
                 fat_total = float(nutrition_info.get('fat_total_g', 0))
                 fat_saturated = float(nutrition_info.get('fat_saturated_g', 0))
                 sodium = float(nutrition_info.get('sodium_mg', 0))
@@ -149,10 +246,10 @@ if uploaded_file is not None:
                 sugar = float(nutrition_info.get('sugar_g', 0))
                 health_status = (fat_total < 11 and fat_saturated < 4 and sodium < 333 and cholesterol < 50 and sugar < 8)
                 
-                # Display health status with larger, bold text
-                st.markdown(f"**<h3>Health Status: {'Healthy' if health_status else 'Unhealthy'}</h3>**", unsafe_allow_html=True)
+                # Tampilkan status kesehatan dengan teks lebih besar dan tebal
+                st.markdown(f"**<h3>Status Kesehatan: {'Sehat' if health_status else 'Tidak Sehat'}</h3>**", unsafe_allow_html=True)
             else:
-                st.markdown(f"**<h3>No nutrition information found.</h3>**", unsafe_allow_html=True)
+                st.markdown(f"**<h3>Tidak ada informasi nutrisi yang ditemukan.</h3>**", unsafe_allow_html=True)
         else:
-            st.write(f"Failed to fetch nutrition info: {response.status_code}")
+            st.write(f"Gagal mengambil informasi nutrisi: {response.status_code}")
         st.markdown("</div>", unsafe_allow_html=True)
