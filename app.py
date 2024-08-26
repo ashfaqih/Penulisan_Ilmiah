@@ -203,7 +203,7 @@ st.write("""
 3. Jenis makanan yang diprediksi, skor kepercayaan, informasi nutrisi, dan status kesehatan akan ditampilkan di layar.
 """)
 # Unggah gambar
-uploaded_file = st.file_uploader("Harap diperhatikan bahwa model ini hanya dapat mengklasifikasikan makanan yang terdapat dalam daftar makanan yang tersedia pada bagan di atas. Pastikan gambar makanan yang Anda unggah sesuai dengan salah satu kategori yang telah terdaftar agar prediksi dapat dilakukan dengan akurasi yang optimal.", type=["jpg", "png"])
+uploaded_file = st.file_uploader("Model ini hanya dapat mengklasifikasikan makanan yang ada dalam daftar di atas. Pastikan gambar yang Anda unggah sesuai dengan salah satu kategori tersebut untuk hasil yang akurat.", type=["jpg", "png"])
 
 if uploaded_file is not None:
     col1, col2 = st.columns([1, 1])
