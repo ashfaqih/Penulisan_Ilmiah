@@ -30,32 +30,32 @@ class_names = [
 
 def translate_food_name(name):
     translation_dict = {
-    'baby_back_ribs': 'iga panggang', 'baklava': 'baklava', 'beef_tartare': 'tartar daging sapi',
-    'beet_salad': 'salad bit', 'beignet': 'roti goreng Prancis', 'bibimbap': 'bibimbap',
-    'bruschetta': 'bruschetta', 'caesar_salad': 'salad caesar', 'cannoli': 'cannoli',
-    'caprese_salad': 'salad caprese', 'carrot_cake': 'kue wortel', 'ceviche': 'ceviche',
-    'cheese_plate': 'piring keju', 'cheesecake': 'kue keju', 'chicken_curry': 'kari ayam',
-    'chicken_quesadilla': 'quesadilla ayam', 'chicken_wings': 'sayap ayam', 'chocolate_cake': 'kue coklat',
-    'churros': 'churros', 'clam_chowder': 'sup krim kerang', 'club_sandwich': 'sandwich klub',
-    'creme_brulee': 'creme brulee', 'cup_cakes': 'kue cangkir', 'deviled_eggs': 'telur isi',
-    'donuts': 'donat', 'dumplings': 'pangsit', 'edamame': 'kedelai Jepang',
-    'eggs_benedict': 'telur benedict', 'escargots': 'siput', 'falafel': 'falafel',
-    'filet_mignon': 'daging sapi filet', 'fish_and_chips': 'ikan dan kentang goreng', 'french_fries': 'kentang goreng',
-    'french_onion_soup': 'sup bawang Perancis', 'french_toast': 'roti panggang Perancis', 'fried_rice': 'nasi goreng',
-    'garlic_bread': 'roti bawang putih', 'gnocchi': 'gnocchi', 'greek_salad': 'salad Yunani',
-    'guacamole': 'guacamole', 'gyoza': 'gyoza', 'hamburger': 'hamburger',
-    'hot_and_sour_soup': 'sup asam pedas', 'hot_dog': 'hot dog', 'ice_cream': 'es krim',
-    'lasagna': 'lasagna', 'lobster_bisque': 'bisque lobster', 'macaroni_and_cheese': 'makaroni dan keju',
-    'macarons': 'makaron', 'miso_soup': 'sup miso', 'mussels': 'kerang',
-    'nachos': 'nachos', 'onion_rings': 'cincin bawang', 'oysters': 'tiram',
-    'pad_thai': 'pad thai', 'paella': 'paella', 'pancakes': 'panekuk',
-    'panna_cotta': 'panna cotta', 'peking_duck': 'bebek peking', 'pho': 'pho',
-    'pizza': 'pizza', 'poutine': 'poutine', 'prime_rib': 'iga utama',
-    'pulled_pork_sandwich': 'sandwich babi suwir', 'ramen': 'ramen', 'risotto': 'risotto',
-    'samosa': 'samosa', 'sashimi': 'sashimi', 'seaweed_salad': 'salad rumput laut',
-    'shrimp_and_grits': 'udang dan bubur jagung', 'spaghetti_bolognese': 'spageti bolognese', 'spring_rolls': 'lumpia',
-    'strawberry_shortcake': 'kue stroberi', 'sushi': 'sushi', 'tiramisu': 'tiramisu',
-    'waffles': 'wafel'
+    'baby_back_ribs': 'Iga Panggang', 'baklava': 'Baklava', 'beef_tartare': 'Tartar Daging Sapi',
+    'beet_salad': 'Salad Bit', 'beignet': 'Roti Goreng Prancis', 'bibimbap': 'Bibimbap',
+    'bruschetta': 'Bruschetta', 'caesar_salad': 'Salad Caesar', 'cannoli': 'Cannoli',
+    'caprese_salad': 'Salad Caprese', 'carrot_cake': 'Kue Wortel', 'ceviche': 'Ceviche',
+    'cheese_plate': 'Piring Keju', 'cheesecake': 'Kue Keju', 'chicken_curry': 'Kari Ayam',
+    'chicken_quesadilla': 'Quesadilla Ayam', 'chicken_wings': 'Sayap Ayam', 'chocolate_cake': 'Kue Coklat',
+    'churros': 'Churros', 'clam_chowder': 'Sup Krim Kerang', 'club_sandwich': 'Sandwich Klub',
+    'creme_brulee': 'Creme Brulee', 'cup_cakes': 'Kue Cangkir', 'deviled_eggs': 'Telur Isi',
+    'donuts': 'Donat', 'dumplings': 'Pangsit', 'edamame': 'Kedelai Jepang',
+    'eggs_benedict': 'Telur Benedict', 'escargots': 'Siput', 'falafel': 'Falafel',
+    'filet_mignon': 'Daging Sapi Filet', 'fish_and_chips': 'Ikan dan Kentang Goreng', 'french_fries': 'Kentang Goreng',
+    'french_onion_soup': 'Sup Bawang Prancis', 'french_toast': 'Roti Panggang Prancis', 'fried_rice': 'Nasi Goreng',
+    'garlic_bread': 'Roti Bawang Putih', 'gnocchi': 'Gnocchi', 'greek_salad': 'Salad Yunani',
+    'guacamole': 'Guacamole', 'gyoza': 'Gyoza', 'hamburger': 'Hamburger',
+    'hot_and_sour_soup': 'Sup Asam Pedas', 'hot_dog': 'Hot Dog', 'ice_cream': 'Es Krim',
+    'lasagna': 'Lasagna', 'lobster_bisque': 'Lobster Bisque', 'macaroni_and_cheese': 'Makaroni dan Keju',
+    'macarons': 'Makaron', 'miso_soup': 'Sup Miso', 'mussels': 'Kerang',
+    'nachos': 'Nachos', 'onion_rings': 'Cincin Bawang', 'oysters': 'Tiram',
+    'pad_thai': 'Pad Thai', 'paella': 'Paella', 'pancakes': 'Panekuk',
+    'panna_cotta': 'Panna Cotta', 'peking_duck': 'Bebek Peking', 'pho': 'Pho',
+    'pizza': 'Pizza', 'poutine': 'Poutine', 'prime_rib': 'Iga Utama',
+    'pulled_pork_sandwich': 'Sandwich Babi Suwir', 'ramen': 'Ramen', 'risotto': 'Risotto',
+    'samosa': 'Samosa', 'sashimi': 'Sashimi', 'seaweed_salad': 'Salad Rumput Laut',
+    'shrimp_and_grits': 'Udang dan Bubur Jagung', 'spaghetti_bolognese': 'Spageti Bolognese', 'spring_rolls': 'Lumpia',
+    'strawberry_shortcake': 'Kue Stroberi', 'sushi': 'Sushi', 'tiramisu': 'Tiramisu',
+    'waffles': 'Wafel'
     }
     return translation_dict.get(name, name)
 
@@ -98,7 +98,7 @@ def resize_image(image_path, size=(300, 300)):
 def find_images_in_folder(folder):
     image_paths = []
     for root, dirs, files in os.walk(folder):
-        for file in sorted(files):
+        for file in files:
             if file.lower().endswith(('.png', '.jpg', '.jpeg')):
                 image_paths.append(os.path.join(root, file))
     return image_paths
@@ -130,16 +130,16 @@ image_paths = find_images_in_folder(image_folder)
 labels = [
     'Iga Panggang (Baby Back Ribs)', 'Baklava', 'Tartar Daging Sapi (Beef Tartare)', 'Salad Bit (Beet Salad)', 
     'Roti Goreng Prancis (Beignet)', 'Bibimbap', 'Bruschetta', 'Salad Caesar (Caesar Salad)', 'Cannoli', 
-    'Salad Caprese (Caprese Salad)', 'Kue Wortel (Carrot Cake)', 'Ceviche', 'Piring Keju (Cheese Plate)', 
-    'Kue Keju (Cheesecake)', 'Kari Ayam (Chicken Curry)', 'Quesadilla Ayam (Chicken Quesadilla)', 
+    'Salad Caprese (Caprese Salad)', 'Kue Wortel (Carrot Cake)', 'Ceviche', 'Kue Keju (Cheesecake)', 
+    'Piring Keju (Cheese Plate)', 'Kari Ayam (Chicken Curry)', 'Quesadilla Ayam (Chicken Quesadilla)', 
     'Sayap Ayam (Chicken Wings)', 'Kue Coklat (Chocolate Cake)', 'Churros', 'Sup Krim Kerang (Clam Chowder)', 
     'Sandwich Klub (Club Sandwich)', 'Creme Brulee', 'Kue Cangkir (Cup Cakes)', 'Telur Isi (Deviled Eggs)', 
     'Donat (Donuts)', 'Pangsit (Dumplings)', 'Kedelai Jepang (Edamame)', 'Telur Benedict (Eggs Benedict)', 
     'Siput (Escargots)', 'Falafel', 'Daging Sapi Filet (Filet Mignon)', 'Ikan Dan Kentang Goreng (Fish And Chips)', 
-    'Kentang Goreng (French Fries)', 'Sup Bawang Perancis (French Onion Soup)', 'Roti Panggang Perancis (French Toast)', 
+    'Kentang Goreng (French Fries)', 'Sup Bawang Prancis (French Onion Soup)', 'Roti Panggang Prancis (French Toast)', 
     'Nasi Goreng (Fried Rice)', 'Roti Bawang Putih (Garlic Bread)', 'Gnocchi', 'Salad Yunani (Greek Salad)', 
     'Guacamole', 'Gyoza', 'Hamburger', 'Sup Asam Pedas (Hot And Sour Soup)', 'Hot Dog', 'Es Krim (Ice Cream)', 
-    'Lasagna', 'Bisque Lobster (Lobster Bisque)', 'Makaroni Dan Keju (Macaroni And Cheese)', 'Makaron (Macarons)', 
+    'Lasagna', 'Lobster Bisque', 'Makaroni Dan Keju (Macaroni And Cheese)', 'Makaron (Macarons)', 
     'Sup Miso (Miso Soup)', 'Kerang (Mussels)', 'Nachos', 'Cincin Bawang (Onion Rings)', 'Tiram (Oysters)', 
     'Pad Thai', 'Paella', 'Panekuk (Pancakes)', 'Panna Cotta', 'Bebek Peking (Peking Duck)', 'Pho', 'Pizza', 
     'Poutine', 'Iga Utama (Prime Rib)', 'Sandwich Babi Suwir (Pulled Pork Sandwich)', 'Ramen', 'Risotto', 
@@ -203,7 +203,7 @@ st.write("""
 3. Jenis makanan yang diprediksi, skor kepercayaan, informasi nutrisi, dan status kesehatan akan ditampilkan di layar.
 """)
 # Unggah gambar
-uploaded_file = st.file_uploader("Model ini hanya dapat mengklasifikasikan makanan yang ada dalam daftar di atas. Pastikan gambar yang Anda unggah sesuai dengan salah satu kategori tersebut untuk hasil yang akurat.", type=["jpg", "png"])
+uploaded_file = st.file_uploader("Pilih gambar makanan...", type=["jpg", "png"])
 
 if uploaded_file is not None:
     col1, col2 = st.columns([1, 1])
@@ -232,7 +232,7 @@ if uploaded_file is not None:
         url = f'https://api.api-ninjas.com/v1/nutrition?query={predicted_class.replace("_", " ")}'
         headers = {'X-Api-Key': NUTRITION_API_KEY}
         response = requests.get(url, headers=headers)
-    
+
         if response.status_code == 200:
             nutrition_data = response.json()
             if nutrition_data:
@@ -245,19 +245,65 @@ if uploaded_file is not None:
                 st.write(f"Karbohidrat Total (g): {nutrition_info.get('carbohydrates_total_g', 'N/A')}")
                 st.write(f"Serat (g): {nutrition_info.get('fiber_g', 'N/A')}")
                 st.write(f"Gula (g): {nutrition_info.get('sugar_g', 'N/A')}")
-            
+
                 # Perhitungan status kesehatan
                 fat_total = float(nutrition_info.get('fat_total_g', 0))
                 fat_saturated = float(nutrition_info.get('fat_saturated_g', 0))
                 sodium = float(nutrition_info.get('sodium_mg', 0))
+                potassium = float(nutrition_info.get('potassium_mg', 0))
                 cholesterol = float(nutrition_info.get('cholesterol_mg', 0))
+                carbohydrates = float(nutrition_info.get('carbohydrates_total_g', 0))
+                fiber = float(nutrition_info.get('fiber_g', 0))
                 sugar = float(nutrition_info.get('sugar_g', 0))
-                health_status = (fat_total < 11 and fat_saturated < 4 and sodium < 333 and cholesterol < 50 and sugar < 8)
                 
-                # Tampilkan status kesehatan dengan teks lebih besar dan tebal
-                st.markdown(f"**<h3>Status Kesehatan: {'Sehat' if health_status else 'Tidak Sehat'}</h3>**", unsafe_allow_html=True)
+                # Kondisi kesehatan
+                health_status = (fat_total < 11 and fat_saturated < 3.5 and sodium < 333 and cholesterol < 50 and sugar < 8)
+                
+                # Alasan jika makanan tidak sehat
+                reasons = []
+                if fat_total >= 11:
+                    reasons.append("Lemak Total")
+                if fat_saturated >= 3.5:
+                    reasons.append("Lemak Jenuh")
+                if sodium >= 333:
+                    reasons.append("Natrium")
+                if cholesterol >= 50:
+                    reasons.append("Kolesterol")
+                if sugar >= 8:
+                    reasons.append("Gula")
+                    
+                if health_status:
+                    st.markdown(f"**<h3>Status Kesehatan: Sehat</h3>**", unsafe_allow_html=True)
+                else:
+                    reason_text = ", ".join(reasons)
+                    st.markdown(f"**<h3>Status Kesehatan: Tidak Sehat</h3>**", unsafe_allow_html=True)
+                    st.write(f"{reason_text} dalam makanan ini telah melewati batas dari parameter kesehatan, Sehingga dianggap tidak sehat.")
+                
+                # Keterangan tambahan
+                if fiber > 8:
+                    st.write("Serat pada makanan ini sudah sangat cukup untuk kebutuhan sehari-hari.")
+                elif fiber > 4:
+                    st.write("Serat pada makanan ini sudah cukup untuk kebutuhan sehari-hari.")
+                elif fiber > 2:
+                    st.write("Serat pada makanan ini hampir cukup untuk kebutuhan sehari-hari.")
+                    
+                if carbohydrates > 75:
+                    st.write("Karbohidrat pada makanan ini sudah sangat cukup untuk kebutuhan sehari-hari.")
+                elif carbohydrates > 37.5:
+                    st.write("Karbohidrat pada makanan ini sudah cukup untuk kebutuhan sehari-hari.")
+                elif carbohydrates > 18.75:
+                    st.write("Karbohidrat pada makanan ini hampir cukup untuk kebutuhan sehari-hari.")
+                    
+                if potassium > 1167:
+                    st.write("Kalium pada makanan ini sudah sangat cukup untuk kebutuhan sehari-hari.")
+                elif potassium > 583:
+                    st.write("Kalium pada makanan ini sudah cukup untuk kebutuhan sehari-hari.")
+                elif potassium > 292:
+                    st.write("Kalium pada makanan ini hampir cukup untuk kebutuhan sehari-hari.")
+                
             else:
                 st.markdown(f"**<h3>Tidak ada informasi nutrisi yang ditemukan.</h3>**", unsafe_allow_html=True)
         else:
             st.write(f"Gagal mengambil informasi nutrisi: {response.status_code}")
         st.markdown("</div>", unsafe_allow_html=True)
+
