@@ -30,7 +30,7 @@ class_names = [
 
 def translate_food_name(name):
     translation_dict = {
-    'baby_back_ribs': 'Iga Panggang', 'baklava': 'Baklava', 'beef_tartare': 'Tartar Daging Sapi',
+    'baby_back_ribs': 'Iga Punggung', 'baklava': 'Baklava', 'beef_tartare': 'Tartar Daging Sapi',
     'beet_salad': 'Salad Bit', 'beignet': 'Roti Goreng Prancis', 'bibimbap': 'Bibimbap',
     'bruschetta': 'Bruschetta', 'caesar_salad': 'Salad Caesar', 'cannoli': 'Cannoli',
     'caprese_salad': 'Salad Caprese', 'carrot_cake': 'Kue Wortel', 'ceviche': 'Ceviche',
@@ -128,7 +128,7 @@ def display_image_grid(image_paths, labels, columns=4):
 image_folder = 'food_images'
 image_paths = find_images_in_folder(image_folder)
 labels = [
-    'Iga Panggang (Baby Back Ribs)', 'Baklava', 'Tartar Daging Sapi (Beef Tartare)', 'Salad Bit (Beet Salad)', 
+    'Iga Punggung (Baby Back Ribs)', 'Baklava', 'Tartar Daging Sapi (Beef Tartare)', 'Salad Bit (Beet Salad)', 
     'Roti Goreng Prancis (Beignet)', 'Bibimbap', 'Bruschetta', 'Salad Caesar (Caesar Salad)', 'Cannoli', 
     'Salad Caprese (Caprese Salad)', 'Kue Wortel (Carrot Cake)', 'Ceviche', 'Piring Keju (Cheese Plate)', 
     'Kue Keju (Cheesecake)', 'Kari Ayam (Chicken Curry)', 'Quesadilla Ayam (Chicken Quesadilla)', 
@@ -177,15 +177,25 @@ Berikut adalah sumber dan perhitungan yang digunakan:
   - **Lemak Jenuh**: Kurang dari 10% dari total kalori harian.
   - **Natrium**: Kurang dari 2 gram per hari (setara dengan kurang dari 5 gram garam per hari).
   - **Gula**: Tidak lebih dari 10% dari total kalori harian, dengan pengurangan lebih lanjut hingga kurang dari 5% untuk manfaat kesehatan tambahan.
+  - **Kalium**: Direkomendasikan asupan kalium tidak kurang dari 3,5 gram per hari
 - [Pedoman Kolesterol AHA](https://www.ahajournals.org/doi/full/10.1161/CIR.0000000000000743): 
-  Asupan kolesterol harian sebaiknya kurang dari 300mg, untuk lebih menyehatkan jantung.
+  Asupan kolesterol harian sebaiknya kurang dari 300 miligram, untuk lebih menyehatkan jantung.
+- [Pedoman Karbohidrat AHA](https://www.heart.org/en/news/2023/08/11/confused-about-carbs-this-might-help): 
+  Direkomendasikan asupan karbohidrat adalah 45% sampai 65% dari total kalori untuk setiap harinya.
+- [Pedoman Serat UCSF](https://www.ucsfhealth.org/education/increasing-fiber-intake#:~:text=Although%20there%20is%20no%20dietary,day%20%E2%80%94%20coming%20from%20soluble%20fiber.): 
+  Direkomendasikan asupan serat adalah 25 gram sampai 30 gram untuk setiap harinya.
 
 Dengan menggunakan pedoman ini, parameter untuk porsi yang sehat adalah:
-- **Total Lemak**: Kurang dari 11g
-- **Lemak Jenuh**: Kurang dari 4g
-- **Natrium**: Kurang dari 333mg
-- **Kolesterol**: Kurang dari 50mg
-- **Gula**: Kurang dari 8g
+- **Total Lemak**: Kurang dari 11.11 gram
+- **Lemak Jenuh**: Kurang dari 3.7 gram
+- **Natrium**: Kurang dari 333.335 miligram
+- **Kolesterol**: Kurang dari 50 miligram
+- **Gula**: Kurang dari 8.335 gram
+         
+Dengan parameter keterangan tambahan yaitu:
+- **Kalium**:  dianggap sangat cukup jika lebih dari 1166.67 miligram, cukup jika lebih dari 583.335 miligram, dan hampir cukup jika lebih dari 291.6675 miligram.
+- **Karbohidrat**: dianggap sangat cukup jika lebih dari 75 gram, cukup jika lebih dari 37,5 gram, dan hampir cukup jika lebih dari 18,75 gram.
+- **Serat**: dianggap sangat cukup jika lebih dari 8.33 gram, cukup jika lebih dari 4.165 gram, dan hampir cukup jika lebih dari 2.0825 gram
 """)
 
 st.divider()  # Atau bisa juga menggunakan st.markdown("---")
@@ -257,19 +267,19 @@ if uploaded_file is not None:
                 sugar = float(nutrition_info.get('sugar_g', 0))
                 
                 # Kondisi kesehatan
-                health_status = (fat_total < 11 and fat_saturated < 3.5 and sodium < 333 and cholesterol < 50 and sugar < 8)
+                health_status = (fat_total < 11.11 and fat_saturated < 3.7 and sodium < 333.335 and cholesterol < 50 and sugar < 8.335)
                 
                 # Alasan jika makanan tidak sehat
                 reasons = []
-                if fat_total >= 11:
+                if fat_total >= 11.11:
                     reasons.append("Lemak Total")
-                if fat_saturated >= 3.5:
+                if fat_saturated >= 3.7:
                     reasons.append("Lemak Jenuh")
-                if sodium >= 333:
+                if sodium >= 333.335:
                     reasons.append("Natrium")
                 if cholesterol >= 50:
                     reasons.append("Kolesterol")
-                if sugar >= 8:
+                if sugar >= 8.335:
                     reasons.append("Gula")
                     
                 if health_status:
@@ -280,11 +290,11 @@ if uploaded_file is not None:
                     st.write(f"{reason_text} dalam makanan ini telah melewati batas dari parameter kesehatan, Sehingga dianggap tidak sehat.")
                 
                 # Keterangan tambahan
-                if fiber > 8:
+                if fiber > 8.33:
                     st.write("Serat pada makanan ini sudah sangat cukup untuk kebutuhan sehari-hari.")
-                elif fiber > 4:
+                elif fiber > 4.165:
                     st.write("Serat pada makanan ini sudah cukup untuk kebutuhan sehari-hari.")
-                elif fiber > 2:
+                elif fiber > 2.0825:
                     st.write("Serat pada makanan ini hampir cukup untuk kebutuhan sehari-hari.")
                     
                 if carbohydrates > 75:
@@ -294,11 +304,11 @@ if uploaded_file is not None:
                 elif carbohydrates > 18.75:
                     st.write("Karbohidrat pada makanan ini hampir cukup untuk kebutuhan sehari-hari.")
                     
-                if potassium > 1167:
+                if potassium > 1166.67:
                     st.write("Kalium pada makanan ini sudah sangat cukup untuk kebutuhan sehari-hari.")
-                elif potassium > 583:
+                elif potassium > 583.335:
                     st.write("Kalium pada makanan ini sudah cukup untuk kebutuhan sehari-hari.")
-                elif potassium > 292:
+                elif potassium > 291.6675:
                     st.write("Kalium pada makanan ini hampir cukup untuk kebutuhan sehari-hari.")
                 
             else:
