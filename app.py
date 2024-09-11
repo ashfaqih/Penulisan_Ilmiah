@@ -39,7 +39,7 @@ def translate_food_name(name):
     'churros': 'Churros', 'clam_chowder': 'Sup Krim Kerang', 'club_sandwich': 'Sandwich Klub',
     'creme_brulee': 'Creme Brulee', 'cup_cakes': 'Kue Cangkir', 'deviled_eggs': 'Telur Isi',
     'donuts': 'Donat', 'dumplings': 'Pangsit', 'edamame': 'Kedelai Jepang',
-    'eggs_benedict': 'Telur Benedict', 'escargots': 'Siput', 'falafel': 'Falafel',
+    'eggs_benedict': 'Telur Benedict', 'escargots': 'Bekicot Prancis', 'falafel': 'Falafel',
     'filet_mignon': 'Daging Sapi Filet', 'fish_and_chips': 'Ikan dan Kentang Goreng', 'french_fries': 'Kentang Goreng',
     'french_onion_soup': 'Sup Bawang Prancis', 'french_toast': 'Roti Panggang Prancis', 'fried_rice': 'Nasi Goreng',
     'garlic_bread': 'Roti Bawang Putih', 'gnocchi': 'Gnocchi', 'greek_salad': 'Salad Yunani',
@@ -135,7 +135,7 @@ labels = [
     'Sayap Ayam (Chicken Wings)', 'Kue Coklat (Chocolate Cake)', 'Churros', 'Sup Krim Kerang (Clam Chowder)', 
     'Sandwich Klub (Club Sandwich)', 'Creme Brulee', 'Kue Cangkir (Cup Cakes)', 'Telur Isi (Deviled Eggs)', 
     'Donat (Donuts)', 'Pangsit (Dumplings)', 'Kedelai Jepang (Edamame)', 'Telur Benedict (Eggs Benedict)', 
-    'Siput (Escargots)', 'Falafel', 'Daging Sapi Filet (Filet Mignon)', 'Ikan Dan Kentang Goreng (Fish And Chips)', 
+    'Bekicot Prancis (Escargots)', 'Falafel', 'Daging Sapi Filet (Filet Mignon)', 'Ikan Dan Kentang Goreng (Fish And Chips)', 
     'Kentang Goreng (French Fries)', 'Sup Bawang Prancis (French Onion Soup)', 'Roti Panggang Prancis (French Toast)', 
     'Nasi Goreng (Fried Rice)', 'Roti Bawang Putih (Garlic Bread)', 'Gnocchi', 'Salad Yunani (Greek Salad)', 
     'Guacamole', 'Gyoza', 'Hamburger', 'Sup Asam Pedas (Hot And Sour Soup)', 'Hot Dog', 'Es Krim (Ice Cream)', 
@@ -158,7 +158,7 @@ st.divider()  # Atau bisa juga menggunakan st.markdown("---")
 st.subheader('Data Nutrisi:')
 st.write("""
 Informasi nutrisi diambil dari API milik API Ninjas Nutrition. Informasi tersebut mencakup rincian seperti total lemak, 
-lemak jenuh, natrium, kalium, kolesterol, karbohidrat, serat, dan gula. Selain itu, perlu dicatat bahwa kolesterol, 
+lemak jenuh, natrium, kalium, kolesterol, karbohidrat, serat, dan gula. Selain itu, perlu dicatat bahwa data nutrisi untuk setiap item makanan diskalakan ke 100 gram. Data nutrisi seperti kolesterol, 
 kalium, dan natrium diukur dalam miligram (mg), sementara nutrisi lainnya diukur dalam gram (g).
 """)
 
